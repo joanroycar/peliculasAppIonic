@@ -10,7 +10,8 @@ import { Pelicula } from '../interfaces/interfaces';
 export class Tab1Page implements OnInit {
   constructor(private moviesService: MoviesService) {}
 
-  peliculaRecientes: Pelicula[] = [];
+   peliculaRecientes: Pelicula[] = [];
+
 
   ngOnInit() {
     this.moviesService.getFeature().subscribe((resp) => {
