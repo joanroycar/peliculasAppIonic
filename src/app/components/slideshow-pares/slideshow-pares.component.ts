@@ -30,7 +30,7 @@ export class SlideshowParesComponent implements OnInit {
     const modal = await this.modalCrtl.create({
       component: DetalleComponent,
       componentProps: {
-        id,
+        id
       },
     });
 

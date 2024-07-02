@@ -17,14 +17,14 @@ import { DetalleComponent } from './detalle/detalle.component';
     SlideshowBackdropComponent,
     SlideshowPosterComponent,
     SlideshowParesComponent,
-    DetalleComponent,
+    DetalleComponent
   ],
   imports: [CommonModule, IonicModule, ImagenPipe, ParesPipe],
   exports: [
     SlideshowBackdropComponent,
     SlideshowPosterComponent,
     SlideshowParesComponent,
-    DetalleComponent,
+    DetalleComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

@@ -46,7 +46,7 @@ export interface PeliculaDetalle {
     spoken_languages:      SpokenLanguage[];
     status:                string;
     tagline:               string;
-    title:                 string;
+    title?:                 string;
     video:                 boolean;
     vote_average:          number;
     vote_count:            number;
