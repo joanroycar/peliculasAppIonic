@@ -1,55 +1,70 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RespuestaMDB } from '../interfaces/interfaces';
+import { PeliculaDetalle, RespuestaCredits, RespuestaMDB } from '../interfaces/interfaces';
 import { environment } from 'src/environments/environment';
-
 
 const URL = environment.url;
 const apiKey = environment.apiKey;
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MoviesService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
+  private popularesPage = 0;
 
+  private ejecutarQuery<T>(query: string) {
+    query = URL + query;
 
-  private ejecutarQuery<T>(query:string){
-    query = URL +query;
-
-    query += `&api_key=${apiKey}&language=es`
-
+    query += `&api_key=${apiKey}&language=es`;
 
     return this.http.get<T>(query);
-
   }
 
+  getPopulares() {
+    this.popularesPage++;
+    const query = `/discover/movie?sort_by=popularity.desc&page=${this.popularesPage}`;
 
-  getFeature(){
+    return this.ejecutarQuery<RespuestaMDB>(query);
+  }
 
+  getFeature() {
     const hoy = new Date();
 
-    const ultimoDia = new Date(hoy.getFullYear(),hoy.getMonth()+1,0).getDate();
+    const ultimoDia = new Date(
+      hoy.getFullYear(),
+      hoy.getMonth() + 1,
+      0
+    ).getDate();
 
-    const mes = hoy.getMonth()+1;
+    const mes = hoy.getMonth() + 1;
 
     let mesString;
 
-
-    if(mes<10){
-      mesString ='0'+mes;
-    }else{
+    if (mes < 10) {
+      mesString = '0' + mes;
+    } else {
       mesString = mes;
     }
 
-    const inicio = `${hoy.getFullYear()}-${mesString}-01`
-    const fin = `${hoy.getFullYear()}-${mesString}-${ultimoDia}`
+    const inicio = `${hoy.getFullYear()}-${mesString}-01`;
+    const fin = `${hoy.getFullYear()}-${mesString}-${ultimoDia}`;
 
-
-
-
-
-    return this.ejecutarQuery<RespuestaMDB>(`/discover/movie?primary_release_date.gte=${inicio}&primary_release_date.lte=${fin}`);
+    return this.ejecutarQuery<RespuestaMDB>(
+      `/discover/movie?primary_release_date.gte=${inicio}&primary_release_date.lte=${fin}`
+    );
   }
+
+
+  getPeliculaDetalle(id:string){
+    return this.ejecutarQuery<PeliculaDetalle>(`/movie/${id}?a=1`);
+
+  }
+
+  getActores(id:string){
+    return this.ejecutarQuery<RespuestaCredits>(`/movie/${id}/credits?a=1`);
+
+  }
+
 
 }

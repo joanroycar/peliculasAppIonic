@@ -1,8 +1,8 @@
-<swiper-container [options]="slideOpts">
+<swiper-container [slidesPerView]="3.3" [loop]="loopSlide">
   <swiper-slide *ngFor="let pelicula of peliculas">
     <!-- <h1>{{pelicula.title}}</h1> -->
 
-    <ion-card>w
+    <ion-card (click)="verDetalle(pelicula.id)">
       <img class="poster" [src]="pelicula.poster_path | imagen" alt="" />
     </ion-card>
   </swiper-slide>

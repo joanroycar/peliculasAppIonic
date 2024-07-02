@@ -1,0 +1,23 @@
+<swiper-container
+  [slidesPerView]="slidesPerView"
+  slidesPerView="3.3"
+  [spaceBetween]="spaceBetweenSlide"
+>
+  <swiper-slide *ngFor="let pares of peliculas | pares">
+    <!-- <h1>{{pelicula.title}}</h1> -->
+
+    <ion-row>
+      <ion-col size="12" *ngFor="let pelicula of pares">
+        <ion-card (click)="verDetalle(pelicula.id)">
+          <img class="" [src]="pelicula.poster_path | imagen" alt="" />
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </swiper-slide>
+
+  <swiper-slide class="slide-mas">
+    <ion-button class="btn-mas" expand="full" size="large" (click)="onClick()">
+      <ion-icon slot="icon-only" name="add"></ion-icon>
+    </ion-button>
+  </swiper-slide>
+</swiper-container>
