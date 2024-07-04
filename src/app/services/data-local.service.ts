@@ -4,27 +4,26 @@ import { PeliculaDetalle } from '../interfaces/interfaces';
 import { ToastController } from '@ionic/angular';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataLocalService {
-
   private _storage: Storage | null = null;
 
-  peliculas: PeliculaDetalle[]=[];
+  peliculas: PeliculaDetalle[] = [];
 
-  constructor(private storage:Storage, private toastCtrl:ToastController) {
+  constructor(private storage: Storage, private toastCtrl: ToastController) {
     this.init();
-
-    this.cargarFavoritos();
-   }
-   async init() {
+  }
+  get getLocalpeliculas() {
+    return [...this.peliculas];
+  }
+  async init() {
     const storage = await this.storage.create();
     this._storage = storage;
-    // this.loadFavorites();
+    this.cargarFavoritos();
   }
 
-
-  async presentToast(message:string){
+  async presentToast(message: string) {
     const toast = await this.toastCtrl.create({
       message,
       duration: 1500,
@@ -32,59 +31,43 @@ export class DataLocalService {
     toast.present();
   }
 
-
-  guardarPelicula(pelicula:PeliculaDetalle){
-
-
+  guardarPelicula(pelicula: PeliculaDetalle) {
     let existe = false;
-    let mensaje='';
+    let mensaje = '';
 
-    for(const peli of this.peliculas){
-      if(peli.id === pelicula.id){
+    for (const peli of this.peliculas) {
+      if (peli.id === pelicula.id) {
         existe = true;
         break;
       }
     }
 
-
-    if(existe){
-      this.peliculas = this.peliculas.filter(peli => peli.id !== pelicula.id);
+    if (existe) {
+      this.peliculas = this.peliculas.filter((peli) => peli.id !== pelicula.id);
       mensaje = 'Removido de favoritos';
-    }else{
+    } else {
       this.peliculas.push(pelicula);
-      mensaje = 'Agregada a favoritos'
+      mensaje = 'Agregada a favoritos';
     }
 
-
     this.presentToast(mensaje);
-    this._storage?.set('peliculas', this.peliculas)
+    this._storage?.set('peliculas', this.peliculas);
 
     return !existe;
-
-
   }
 
-
-  async cargarFavoritos(){
-
+  async cargarFavoritos() {
     const peliculas = await this._storage?.get('peliculas');
 
     this.peliculas = peliculas || [];
 
-
+    console.log('PELICULKASSSS', this.peliculas);
     return this.peliculas;
-
   }
 
-  async existePelicula(id:any){
-
+  async existePelicula(id: any) {
     await this.cargarFavoritos();
-    const existe = this.peliculas.find(peli => peli.id === id);
+    const existe = this.peliculas.find((peli) => peli.id === id);
     return existe ? true : false;
-
-
   }
-
-
-
 }

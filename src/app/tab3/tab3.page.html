@@ -15,7 +15,7 @@
 
 
 
-  <div *ngFor="let genero of generos">
+  <!-- <div *ngFor="let genero of generos">
     <ion-grid >
       <ion-row>
         <ion-col>
@@ -23,5 +23,19 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-  </div>
+  </div> -->
+  <div *ngFor="let pelicula of favoritoGenero">
+    <ion-grid *ngIf="pelicula.pelis.length > 0">
+      <ion-row>
+        <ion-col>
+          <h4>{{pelicula.genero}}</h4>
+        </ion-col>
+      </ion-row>
+
+      <app-slideshow-poster [peliculas]="pelicula.pelis"></app-slideshow-poster>
+
+    </ion-grid>
+  </div> 
+
+  
 </ion-content>

@@ -9,6 +9,7 @@ import { SlideshowPosterComponent } from './slideshow-poster/slideshow-poster.co
 import { SlideshowParesComponent } from './slideshow-pares/slideshow-pares.component';
 import { ParesPipe } from '../pipes/pares.pipe';
 import { DetalleComponent } from './detalle/detalle.component';
+import { FiltroImagenPipe } from '../pipes/filtro-imagen.pipe';
 
 @NgModule({
   // entryComponents: [DetalleComponent],
@@ -19,7 +20,7 @@ import { DetalleComponent } from './detalle/detalle.component';
     SlideshowParesComponent,
     DetalleComponent
   ],
-  imports: [CommonModule, IonicModule, ImagenPipe, ParesPipe],
+  imports: [CommonModule, IonicModule, ImagenPipe, ParesPipe,FiltroImagenPipe],
   exports: [
     SlideshowBackdropComponent,
     SlideshowPosterComponent,

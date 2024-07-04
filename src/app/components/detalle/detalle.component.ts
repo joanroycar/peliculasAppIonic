@@ -20,7 +20,12 @@ export class DetalleComponent implements OnInit {
     private moviesService: MoviesService,
     private modalCtrl: ModalController,
     private dataLocal: DataLocalService
-  ) {}
+  ) {
+
+    this.dataLocal.cargarFavoritos();
+
+
+  }
 
   async ngOnInit() {
 
